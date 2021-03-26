@@ -3,8 +3,6 @@ def run(driver,wait,By,EC,ActionChains,sleep):
             sleep(0.5)
             driver.execute_script("window.history.go(-1)")
             sleep(0.5)
-
-      print('footer test...')
       
       #footer1 제품소개
       for i in range(1,5):

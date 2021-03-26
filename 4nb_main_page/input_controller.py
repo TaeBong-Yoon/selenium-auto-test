@@ -4,8 +4,6 @@ def run(driver,wait,By,EC,ActionChains,sleep,Alert):
             Alert(driver).accept()
             sleep(0.5)
 
-      print('input test...')
-
       writer = driver.find_element(By.ID,'writer')
       company = driver.find_element(By.ID,'company')
       tel = driver.find_element(By.ID,'tel')

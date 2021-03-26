@@ -5,12 +5,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import TimeoutException
 
 from time import sleep
 
-import requests
+import requests,re,unittest,HtmlTestRunner
 from bs4 import BeautifulSoup as bs
-import re
 
 import carousel_controller as ct
 import footer_controller as fc
@@ -20,23 +20,34 @@ import mid_contents_controller as mc
 
 import href_tag_controller as hc
 
-test_url_page = 'https://www.4nb.co.kr/v2/index.php'
+class MainTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Chrome(r'C:\chromedriver.exe')
+        cls.driver.implicitly_wait(30)
+        cls.test_url_page = 'https://www.4nb.co.kr/v2/index.php'
+        cls.driver.get('https://www.4nb.co.kr/v2/index.php')
+        cls.driver.maximize_window()
 
-driver = webdriver.Chrome(r'C:\chromedriver.exe')
+        cls.wait = WebDriverWait(cls.driver,10)
 
-driver.implicitly_wait(3)
+    def test_carousel(self):
+        ct.run(self.driver,self.wait,By,EC,ActionChains,sleep)
+    def test_footer(self):        
+        fc.run(self.driver,self.wait,By,EC,ActionChains,sleep)
+    def test_input(self):
+        ic.run(self.driver,self.wait,By,EC,ActionChains,sleep,Alert)
+    def test_top_nav(self):
+        tc.run(self.driver,self.wait,By,EC,ActionChains,sleep,TimeoutException)
+    def test_mid_contents(self):
+        mc.run(self.driver,self.wait,By,EC,ActionChains,sleep)
+    def test_href_tag(self):
+        hc.run(self.test_url_page,requests,bs,re)
+    
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
 
-driver.get(test_url_page)
-driver.maximize_window()
-
-wait = WebDriverWait(driver,10)
-
-ct.run(driver,wait,By,EC,ActionChains,sleep)
-fc.run(driver,wait,By,EC,ActionChains,sleep)
-ic.run(driver,wait,By,EC,ActionChains,sleep,Alert)
-tc.run(driver,wait,By,EC,ActionChains,sleep)
-mc.run(driver,wait,By,EC,ActionChains,sleep)
-
-driver.quit()
-
-hc.run(test_url_page,requests,bs,re)
+if __name__ == "__main__":
+    runner = "ReportTest"
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=runner))

@@ -1,4 +1,4 @@
-def run(driver,wait,By,EC,ActionChains,sleep):
+def run(driver,wait,By,EC,ActionChains,sleep,TimeoutException):
       def go_back():
             sleep(0.5)
             driver.execute_script("window.history.go(-1)")
@@ -9,6 +9,7 @@ def run(driver,wait,By,EC,ActionChains,sleep):
             action=ActionChains(driver)
             mainmenu = driver.find_element(By.XPATH,'//*[@id="mainmenu"]/li[1]')
             action.move_to_element(mainmenu).perform()
+            sleep(0.5)
 
       #logo
       wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="logo"]'))).click()
@@ -16,18 +17,27 @@ def run(driver,wait,By,EC,ActionChains,sleep):
       #top nav
       for i in range(1,6):
             for j in range(1,6):
-                        if i==2 and j==4:
+                        if i==2 and j>=4:
                               break
-                        elif i==4 and j==5:
+                        elif i==4 and j>=5:
                               break
-                        drop_down()
-                        wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/nav/div/div/div/div['+str(i)+']/ul/li['+str(j)+']/a'))).click()
-                        go_back()
-
+                        try:
+                              drop_down()
+                              wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/nav/div/div/div/div['+str(i)+']/ul/li['+str(j)+']/a'))).click()
+                              go_back()
+                        except TimeoutException:
+                              print("timeout")
+                        finally:
+                              continue                        
       for k in range(1,4):
-            drop_down()
-            wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/nav/div/div/div/div[1]/ul/li[1]/ul/li['+str(k)+']/a'))).click()
-            go_back()
+            try:
+                  drop_down()
+                  wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/nav/div/div/div/div[1]/ul/li[1]/ul/li['+str(k)+']/a'))).click()
+                  go_back()
+            except TimeoutException:
+                  print("timeout")
+            finally:
+                  continue
 
       wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/p/a'))).click()
       sleep(0.5)

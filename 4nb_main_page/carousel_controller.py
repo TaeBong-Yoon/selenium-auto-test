@@ -4,8 +4,6 @@ def run(driver,wait,By,EC,ActionChains,sleep):
             driver.execute_script("window.history.go(-1)")
             sleep(0.5)
 
-      print('carousel test...')
-
       wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="carouselController"]/div/button/i'))).click()
 
       for i in range(1,3):

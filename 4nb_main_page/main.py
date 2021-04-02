@@ -9,8 +9,10 @@ from selenium.common.exceptions import TimeoutException
 
 from time import sleep
 
-import requests,re,unittest,HtmlTestRunner
+import requests,re,unittest,HtmlTestRunner,os,sys
 from bs4 import BeautifulSoup as bs
+
+sys.path.insert(0,'c:\\selenium\\4nb\\selenium-auto-test\\4nb_common')
 
 import carousel_controller as ct
 import footer_controller as fc

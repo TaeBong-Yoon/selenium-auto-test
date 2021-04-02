@@ -29,7 +29,7 @@ def run(driver,wait,By,EC,ActionChains,sleep,TimeoutException):
                               print("timeout")
                         finally:
                               continue                        
-      for k in range(1,4):
+      """for k in range(1,4):
             try:
                   drop_down()
                   wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/nav/div/div/div/div[1]/ul/li[1]/ul/li['+str(k)+']/a'))).click()
@@ -37,7 +37,7 @@ def run(driver,wait,By,EC,ActionChains,sleep,TimeoutException):
             except TimeoutException:
                   print("timeout")
             finally:
-                  continue
+                  continue"""
 
       wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="top"]/p/a'))).click()
       sleep(0.5)

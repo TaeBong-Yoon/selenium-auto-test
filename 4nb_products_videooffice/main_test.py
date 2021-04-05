@@ -18,31 +18,23 @@ import footer_controller as fc
 import top_nav_controller as tc
 import href_tag_controller as hc
 import left_container_controller as lc
-import mid_contents_controller as mc
+import products_category_controller as pcc
 
 class MainTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Chrome(r'C:\chromedriver.exe')
         cls.driver.implicitly_wait(30)
-        cls.test_url_page = 'https://www.4nb.co.kr/v2/products/videooffice.php'
         cls.driver.get('https://www.4nb.co.kr/v2/products/videooffice.php')
         cls.driver.maximize_window()
-
         cls.wait = WebDriverWait(cls.driver,10)
 
-    def test_footer(self):        
-        fc.run(self.driver,self.wait,By,EC,ActionChains,sleep)
-    def test_top_nav(self):
-        tc.run(self.driver,self.wait,By,EC,ActionChains,sleep,TimeoutException)
-
     def test_mid_contents(self):
-        mc.run(self.driver,self.wait,By,EC,ActionChains,sleep)
-    def test_left_container(self):
-        lc.run(self.driver,self.wait,By,EC,ActionChains,sleep,'products')
+        pcc.run(self.driver,self.wait,By,EC,ActionChains,sleep)
+    
+    # def test_left_container(self):
+    #     lc.run(self.driver,self.wait,By,EC,ActionChains,sleep,)
 
-    def test_href_tag(self):
-        hc.run(self.test_url_page,requests,bs,re)
     
     @classmethod
     def tearDownClass(cls):

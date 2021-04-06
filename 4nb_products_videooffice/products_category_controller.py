@@ -58,11 +58,11 @@ def run(driver,wait,By,EC,ActionChains,sleep):
         go_back()
 
     driver.get('https://www.4nb.co.kr/v2/products/webinar.php')
-    sleep(1)
+    sleep(2)
     
 #webinar.php
     #제품소개서 다운로드
-    for i in range(1,3):
+    for i in range(1,3): 
         wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="contents"]/div[17]/div/p['+str(i)+']/a/img'))).click()
         go_back()
 
